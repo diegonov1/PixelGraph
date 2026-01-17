@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # Backend service (Python + FastAPI)
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./langarcade:/app/langarcade
+      - ./examples:/app/examples
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    command: python examples/simple_demo.py
+
+  # Frontend development server
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    environment:
+      - VITE_WS_URL=ws://localhost:8000/ws/game
+    depends_on:
+      - backend
+    command: npm run dev -- --host
+
+  # Production build (single container)
+  production:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    profiles:
+      - prod

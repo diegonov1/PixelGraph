@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "langarcade"
+version = "0.1.0"
+description = "8-bit visualization for LangGraph agents"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Diego", email = "diego@example.com"}
+]
+keywords = ["langgraph", "langchain", "visualization", "8-bit", "agents", "ai"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.0.0",
+    "websockets>=12.0",
+    "langchain-core>=0.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "httpx>=0.25.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+]
+langgraph = [
+    "langgraph>=0.0.40",
+]
+openai = [
+    "langchain-openai>=0.0.5",
+]
+all = [
+    "langarcade[dev,langgraph,openai]",
+]
+
+[project.urls]
+Homepage = "https://github.com/diegonov1/PixelGraph"
+Repository = "https://github.com/diegonov1/PixelGraph"
+Issues = "https://github.com/diegonov1/PixelGraph/issues"
+
+[project.scripts]
+langarcade = "langarcade.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["langarcade*"]
+
+[tool.setuptools.package-data]
+langarcade = ["static/**/*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py310', 'py311', 'py312']
+include = '\.pyi?$'
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
