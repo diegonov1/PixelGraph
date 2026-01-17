@@ -61,9 +61,9 @@ export class MainScene extends Phaser.Scene {
     // Listen for events from React
     GameEventBus.on('game-event', (event: GameEvent) => {
       // Some events should be processed immediately, others queued
-      const immediateEvents = [EVENT_TYPES.SYSTEM_READY, EVENT_TYPES.SIMULATION_START, EVENT_TYPES.ERROR]
+      const immediateEvents: string[] = [EVENT_TYPES.SYSTEM_READY, EVENT_TYPES.SIMULATION_START, EVENT_TYPES.ERROR]
 
-      if (immediateEvents.includes(event.type as typeof EVENT_TYPES[keyof typeof EVENT_TYPES])) {
+      if (immediateEvents.includes(event.type)) {
         this.handleSystemEvent(event)
       } else {
         this.actionQueue.enqueue(event)

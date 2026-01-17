@@ -34,7 +34,10 @@ yarn-error.log*
 
 # Build outputs
 frontend/dist/
-langarcade/static/
+pixelgraph/static/
+
+# PyPI config (may contain tokens)
+.pypirc
 
 # Environment variables
 .env

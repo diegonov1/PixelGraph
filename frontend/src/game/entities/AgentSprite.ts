@@ -226,7 +226,7 @@ export class AgentSprite extends Phaser.GameObjects.Container {
       let currentIndex = 0
       this.bubbleText.setText('')
 
-      const typeEvent = this.scene.time.addEvent({
+      this.scene.time.addEvent({
         delay: 30,
         callback: () => {
           if (this.bubbleText && currentIndex < fullText.length) {
