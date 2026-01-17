@@ -1,8 +1,8 @@
-# LangArcade
+# PixelGraph
 
 > 8-bit visualization for LangGraph agents
 
-LangArcade transforms your LangGraph agent interactions into a retro 8-bit game experience. Watch your AI agents think, speak, and use tools in a nostalgic pixel-art environment.
+PixelGraph transforms your LangGraph agent interactions into a retro 8-bit game experience. Watch your AI agents think, speak, and use tools in a nostalgic pixel-art environment.
 
 ## Features
 
@@ -54,11 +54,11 @@ python examples/langgraph_example.py
 
 ## Usage
 
-Integrate LangArcade with your existing LangGraph application:
+Integrate PixelGraph with your existing LangGraph application:
 
 ```python
 from langgraph.graph import StateGraph
-from langarcade import GameServer
+from pixelgraph import GameServer
 
 # Your existing LangGraph code
 graph = StateGraph(State)
@@ -75,8 +75,8 @@ server.serve()
 Customize how agents appear in the game:
 
 ```python
-from langarcade import GameServer
-from langarcade.schemas.events import VisualConfig, AgentConfig
+from pixelgraph import GameServer
+from pixelgraph.schemas.events import VisualConfig, AgentConfig
 
 config = VisualConfig(
     title="My Agent Team",
@@ -120,7 +120,7 @@ Frontend (React + Phaser)     Backend (FastAPI + LangGraph)
 
 ```
 pixelgraph/
-├── langarcade/          # Python package
+├── pixelgraph/          # Python package
 │   ├── __init__.py      # Package exports
 │   ├── callback.py      # LangChain callback handler
 │   ├── server.py        # FastAPI WebSocket server

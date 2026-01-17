@@ -1,5 +1,5 @@
 """
-GameServer - FastAPI WebSocket server for LangArcade.
+GameServer - FastAPI WebSocket server for PixelGraph.
 
 This module provides the main server class that accepts a compiled LangGraph
 and serves both the WebSocket API and the static frontend files.
@@ -17,8 +17,8 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
-from langarcade.callback import GameVisualizerCallbackHandler, GameEventType
-from langarcade.schemas.events import VisualConfig, AgentConfig
+from pixelgraph.callback import GameVisualizerCallbackHandler, GameEventType
+from pixelgraph.schemas.events import VisualConfig, AgentConfig
 
 
 class SessionManager:
@@ -50,7 +50,7 @@ class SessionManager:
 
 class GameServer:
     """
-    Main server class for LangArcade visualization.
+    Main server class for PixelGraph visualization.
 
     This server accepts a compiled LangGraph application and serves:
     - WebSocket endpoint for real-time communication
@@ -58,7 +58,7 @@ class GameServer:
 
     Usage:
         from langgraph.graph import StateGraph
-        from langarcade import GameServer
+        from pixelgraph import GameServer
 
         # Define your graph
         graph = StateGraph(State)
@@ -74,7 +74,7 @@ class GameServer:
         self,
         graph: Any = None,
         config: Optional[VisualConfig | dict] = None,
-        title: str = "LangArcade",
+        title: str = "PixelGraph",
     ):
         """
         Initialize the GameServer.
@@ -105,7 +105,7 @@ class GameServer:
         async def lifespan(app: FastAPI):
             # Startup
             print(f"\n{'='*50}")
-            print(f"  LangArcade - {self.title}")
+            print(f"  PixelGraph - {self.title}")
             print(f"{'='*50}")
             print(f"  Frontend: http://localhost:{{port}}")
             print(f"  WebSocket: ws://localhost:{{port}}/ws/game")
@@ -115,7 +115,7 @@ class GameServer:
 
         self.app = FastAPI(
             title=self.title,
-            description="LangArcade - 8-bit visualization for LangGraph agents",
+            description="PixelGraph - 8-bit visualization for LangGraph agents",
             lifespan=lifespan,
         )
 
@@ -165,7 +165,7 @@ class GameServer:
                     "agent_id": "system",
                     "data": {
                         "config": self.config.model_dump(),
-                        "message": "LangArcade ready!",
+                        "message": "PixelGraph ready!",
                     },
                 }
             )
@@ -299,7 +299,7 @@ class GameServer:
             @self.app.get("/")
             async def dev_info():
                 return {
-                    "message": "LangArcade API Server",
+                    "message": "PixelGraph API Server",
                     "note": "Frontend not bundled. Run frontend dev server separately.",
                     "websocket": "/ws/game",
                     "config": "/api/config",
@@ -314,7 +314,7 @@ class GameServer:
             port: Port to bind to
             **kwargs: Additional arguments passed to uvicorn
         """
-        print(f"\nStarting LangArcade on http://{host}:{port}")
+        print(f"\nStarting PixelGraph on http://{host}:{port}")
         uvicorn.run(self.app, host=host, port=port, **kwargs)
 
     async def serve_async(self, host: str = "0.0.0.0", port: int = 8000, **kwargs):

@@ -20,13 +20,13 @@ dev-backend:
 dev-frontend:
 	cd frontend && npm run dev
 
-# Build frontend and copy to langarcade/static
+# Build frontend and copy to pixelgraph/static
 build:
 	cd frontend && npm run build
 
 # Clean build artifacts
 clean:
-	rm -rf langarcade/static/*
+	rm -rf pixelgraph/static/*
 	rm -rf frontend/dist
 	rm -rf frontend/node_modules
 	find . -type d -name __pycache__ -exec rm -rf {} +
@@ -46,13 +46,13 @@ docker-prod:
 
 # Build production Docker image
 docker-build:
-	docker build -t langarcade:latest .
+	docker build -t pixelgraph:latest .
 
 # Format code
 format:
-	black langarcade/ examples/ tests/
+	black pixelgraph/ examples/ tests/
 	cd frontend && npm run lint -- --fix
 
 # Type check
 typecheck:
-	mypy langarcade/
+	mypy pixelgraph/

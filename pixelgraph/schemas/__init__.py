@@ -1,6 +1,6 @@
 """Pydantic schemas for WebSocket event protocol."""
 
-from langarcade.schemas.events import (
+from pixelgraph.schemas.events import (
     GameEvent,
     AgentConfig,
     VisualConfig,

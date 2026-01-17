@@ -1,7 +1,7 @@
 """
 LangGraph Example - Full integration with a real LangGraph
 
-This example shows how to integrate LangArcade with an actual
+This example shows how to integrate PixelGraph with an actual
 LangGraph application. Requires OPENAI_API_KEY environment variable.
 
 Usage:
@@ -26,8 +26,8 @@ except ImportError:
     print("Install with: pip install langchain-openai langgraph")
     sys.exit(1)
 
-from langarcade import GameServer
-from langarcade.schemas.events import VisualConfig, AgentConfig
+from pixelgraph import GameServer
+from pixelgraph.schemas.events import VisualConfig, AgentConfig
 
 
 # Define the state for our graph

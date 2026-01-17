@@ -4,7 +4,7 @@ import asyncio
 import pytest
 from uuid import uuid4
 
-from langarcade.callback import GameVisualizerCallbackHandler, GameEventType
+from pixelgraph.callback import GameVisualizerCallbackHandler, GameEventType
 
 
 @pytest.fixture

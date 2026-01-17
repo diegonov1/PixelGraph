@@ -1,9 +1,9 @@
 """
-LangArcade CLI - Command line interface for running the visualizer.
+PixelGraph CLI - Command line interface for running the visualizer.
 
 Usage:
-    langarcade run my_script.py:app
-    langarcade demo
+    pixelgraph run my_script.py:app
+    pixelgraph demo
 """
 
 import argparse
@@ -11,8 +11,8 @@ import importlib.util
 import sys
 from pathlib import Path
 
-from langarcade.server import GameServer
-from langarcade.schemas.events import VisualConfig
+from pixelgraph.server import GameServer
+from pixelgraph.schemas.events import VisualConfig
 
 
 def load_app_from_string(app_string: str):
@@ -62,12 +62,12 @@ def run_command(args):
         print(f"Error loading app: {e}")
         sys.exit(1)
 
-    config = VisualConfig(title=args.title or "LangArcade")
+    config = VisualConfig(title=args.title or "PixelGraph")
 
     server = GameServer(
         graph=app,
         config=config,
-        title=args.title or "LangArcade"
+        title=args.title or "PixelGraph"
     )
 
     server.serve(host=args.host, port=args.port)
@@ -75,16 +75,16 @@ def run_command(args):
 
 def demo_command(args):
     """Run demo mode without a real LangGraph."""
-    config = VisualConfig(title="LangArcade Demo")
+    config = VisualConfig(title="PixelGraph Demo")
 
     server = GameServer(
         graph=None,
         config=config,
-        title="LangArcade Demo"
+        title="PixelGraph Demo"
     )
 
     print("\n" + "=" * 50)
-    print("  LangArcade Demo Mode")
+    print("  PixelGraph Demo Mode")
     print("=" * 50)
     print(f"\n  Open http://{args.host}:{args.port} in your browser")
     print("  (Make sure frontend is running on port 3000)")
@@ -95,7 +95,7 @@ def demo_command(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="LangArcade - 8-bit visualization for LangGraph agents"
+        description="PixelGraph - 8-bit visualization for LangGraph agents"
     )
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 

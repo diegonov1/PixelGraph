@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "langarcade"
+name = "pixelgraph"
 version = "0.1.0"
 description = "8-bit visualization for LangGraph agents"
 readme = "README.md"
@@ -46,7 +46,7 @@ openai = [
     "langchain-openai>=0.0.5",
 ]
 all = [
-    "langarcade[dev,langgraph,openai]",
+    "pixelgraph[dev,langgraph,openai]",
 ]
 
 [project.urls]
@@ -55,13 +55,13 @@ Repository = "https://github.com/diegonov1/PixelGraph"
 Issues = "https://github.com/diegonov1/PixelGraph/issues"
 
 [project.scripts]
-langarcade = "langarcade.cli:main"
+pixelgraph = "pixelgraph.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["langarcade*"]
+include = ["pixelgraph*"]
 
 [tool.setuptools.package-data]
-langarcade = ["static/**/*"]
+pixelgraph = ["static/**/*"]
 
 [tool.black]
 line-length = 88

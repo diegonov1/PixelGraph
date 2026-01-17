@@ -1,5 +1,5 @@
 /**
- * MainScene - Primary Phaser scene for the LangArcade game
+ * MainScene - Primary Phaser scene for the PixelGraph game
  *
  * Handles rendering of agents, backgrounds, and animations.
  * Listens to events from the EventBus to update visuals.
@@ -30,7 +30,7 @@ export class MainScene extends Phaser.Scene {
     this.createBackground()
 
     // Create title
-    this.add.text(this.cameras.main.width / 2, 30, 'LANGARCADE', {
+    this.add.text(this.cameras.main.width / 2, 30, 'PIXELGRAPH', {
       fontFamily: '"Press Start 2P", cursive',
       fontSize: '20px',
       color: '#ffffff',

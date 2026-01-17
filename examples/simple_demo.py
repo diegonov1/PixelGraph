@@ -1,5 +1,5 @@
 """
-Simple Demo - Run LangArcade without a real LangGraph
+Simple Demo - Run PixelGraph without a real LangGraph
 
 This example demonstrates the visualization without requiring
 any LLM API keys. The server runs in "demo mode" and sends
@@ -14,14 +14,14 @@ Then open http://localhost:8000 in your browser (or run frontend separately)
 import sys
 sys.path.insert(0, '.')
 
-from langarcade import GameServer
-from langarcade.schemas.events import VisualConfig, AgentConfig
+from pixelgraph import GameServer
+from pixelgraph.schemas.events import VisualConfig, AgentConfig
 
 
 def main():
     # Configure the visual appearance
     config = VisualConfig(
-        title="LangArcade Demo",
+        title="PixelGraph Demo",
         theme="dungeon",
         nodes={
             "wizard": AgentConfig(
@@ -36,11 +36,11 @@ def main():
     server = GameServer(
         graph=None,  # No real graph = demo mode
         config=config,
-        title="LangArcade Demo"
+        title="PixelGraph Demo"
     )
 
     print("\n" + "=" * 50)
-    print("  LangArcade Demo Server")
+    print("  PixelGraph Demo Server")
     print("=" * 50)
     print("\n  Backend: http://localhost:8000")
     print("  Frontend: Run 'npm run dev' in frontend/ folder")

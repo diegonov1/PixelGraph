@@ -1,5 +1,5 @@
 {
-  "name": "langarcade-frontend",
+  "name": "pixelgraph-frontend",
   "version": "0.1.0",
   "description": "8-bit visualization frontend for LangGraph agents",
   "private": true,

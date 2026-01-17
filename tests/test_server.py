@@ -3,8 +3,8 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from langarcade.server import GameServer, SessionManager
-from langarcade.schemas.events import VisualConfig, AgentConfig
+from pixelgraph.server import GameServer, SessionManager
+from pixelgraph.schemas.events import VisualConfig, AgentConfig
 
 
 class TestSessionManager:

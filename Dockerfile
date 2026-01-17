@@ -1,4 +1,4 @@
-# Multi-stage build for LangArcade
+# Multi-stage build for PixelGraph
 
 # Stage 1: Build frontend
 FROM node:20-alpine AS frontend-builder
@@ -20,11 +20,11 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy backend code
-COPY langarcade/ ./langarcade/
+COPY pixelgraph/ ./pixelgraph/
 COPY examples/ ./examples/
 
 # Copy built frontend into the package
-COPY --from=frontend-builder /app/langarcade/static ./langarcade/static
+COPY --from=frontend-builder /app/pixelgraph/static ./pixelgraph/static
 
 # Expose port
 EXPOSE 8000

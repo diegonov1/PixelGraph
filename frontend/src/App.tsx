@@ -49,7 +49,7 @@ function App() {
       wsRef.current = ws
 
       ws.onopen = () => {
-        console.log('Connected to LangArcade server')
+        console.log('Connected to PixelGraph server')
         setIsConnected(true)
       }
 

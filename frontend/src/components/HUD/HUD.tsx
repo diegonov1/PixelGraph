@@ -14,7 +14,7 @@ export function HUD({ isConnected }: HUDProps) {
   return (
     <div className="hud">
       <div className="hud-left">
-        <span className="hud-title">LANGARCADE</span>
+        <span className="hud-title">PIXELGRAPH</span>
         <span className="hud-version">v0.1.0</span>
       </div>
 
