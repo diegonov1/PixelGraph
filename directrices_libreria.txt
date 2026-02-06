@@ -4,7 +4,7 @@ Si haces un wrapper (es decir, obligas al usuario a usar `YourGraph` en lugar de
 
 El enfoque ganador es el de **"Inyección" o "Servidor de Desarrollo"** (similar a cómo funcionan **Chainlit**, **Streamlit** o **FastAPI**).
 
-Aquí te explico cómo debería funcionar esta librería (llamémosla `langarcade`) para que sea un éxito:
+Aquí te explico cómo debería funcionar esta librería (llamémosla `pixelgraph`) para que sea un éxito:
 
 ---
 
@@ -29,7 +29,7 @@ graph = StateGraph(State)
 app = graph.compile()
 
 # --- AQUÍ ENTRA TU LIBRERÍA ---
-from langarcade import GameServer
+from pixelgraph import GameServer
 
 # Opción A: Arrancar el servidor visualizador directamente
 if __name__ == "__main__":
@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
 ### ¿Cómo funcionaría por dentro la librería?
 
-Tu librería `langarcade` en Python tendría la siguiente responsabilidad:
+Tu librería `pixelgraph` en Python tendría la siguiente responsabilidad:
 
 1.  **Empaquetar el Frontend:** Tu librería de Python incluiría dentro de su carpeta de instalación los archivos compilados del frontend (React + Phaser build files).
 2.  **Levantar FastAPI:** La clase `GameServer` levanta una instancia de `uvicorn` en segundo plano.
@@ -54,7 +54,7 @@ Tu librería `langarcade` en Python tendría la siguiente responsabilidad:
 ### Estructura de la Librería (Python Package)
 
 ```text
-langarcade/
+pixelgraph/
 ├── __init__.py          # Exporta GameServer
 ├── server.py            # Lógica de FastAPI + Uvicorn
 ├── callback.py          # El GameVisualizerCallbackHandler (que ya diseñamos)
@@ -71,7 +71,7 @@ langarcade/
 3.  **Modo CLI (Opcional):** Podrías incluso hacer que funcione como Streamlit:
     ```bash
     # En la terminal
-    langarcade run mi_archivo.py:app
+    pixelgraph run mi_archivo.py:app
     ```
     Esto es el "gold standard" de la usabilidad en herramientas de Python.
 

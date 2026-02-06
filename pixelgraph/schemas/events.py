@@ -60,4 +60,4 @@ class VisualConfig(BaseModel):
 
     nodes: dict[str, AgentConfig] = Field(default_factory=dict)
     theme: str = "dungeon"
-    title: str = "LangArcade"
+    title: str = "PixelGraph"

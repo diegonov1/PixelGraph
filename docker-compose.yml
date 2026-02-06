@@ -9,7 +9,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./langarcade:/app/langarcade
+      - ./pixelgraph:/app/pixelgraph
       - ./examples:/app/examples
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}

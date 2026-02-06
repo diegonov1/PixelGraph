@@ -50,9 +50,6 @@ export class MainScene extends Phaser.Scene {
       }
     ).setOrigin(0.5)
 
-    // Create default wizard agent at center
-    this.createAgent('wizard', 'Wizard', this.cameras.main.width / 2, 250)
-
     // Set up action queue handler
     this.actionQueue.setActionHandler(async (event) => {
       await this.handleGameEvent(event)
@@ -122,16 +119,18 @@ export class MainScene extends Phaser.Scene {
       const numAgents = this.agents.size
       const centerX = this.cameras.main.width / 2
       const centerY = 250
-      const radius = 150
+      const radius = 250
 
       let x: number, y: number
       if (numAgents === 0) {
-        x = centerX
+        // First agent: left of center
+        x = centerX - radius / 2
         y = centerY
       } else {
+        // Distribute evenly in a circle
         const angle = (numAgents / (numAgents + 1)) * Math.PI * 2 - Math.PI / 2
         x = centerX + Math.cos(angle) * radius
-        y = centerY + Math.sin(angle) * radius * 0.5
+        y = centerY + Math.sin(angle) * radius * 0.4
       }
 
       agent = this.createAgent(agentId, agentId, x, y)

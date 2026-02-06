@@ -1,6 +1,10 @@
-# PixelGraph
+<p align="center">
+  <img src="logo/banner.png" alt="PixelGraph" width="100%">
+</p>
 
-> 8-bit visualization for LangGraph agents
+<p align="center">
+  <strong>8-bit visualization for LangGraph agents</strong>
+</p>
 
 PixelGraph transforms your LangGraph agent interactions into a retro 8-bit game experience. Watch your AI agents think, speak, and use tools in a nostalgic pixel-art environment.
 
@@ -30,17 +34,25 @@ cd frontend && npm install && cd ..
 
 ### Run Demo Mode
 
-Without any LLM API key, you can run the demo:
+Without any LLM API key, you can run the demo (includes a planner-executor workflow):
+
+```bash
+python examples/simple_demo.py
+```
+
+Open http://localhost:8000 in your browser and send a message to see the agents in action.
+
+For frontend development with hot-reload:
 
 ```bash
 # Terminal 1: Start backend
 python examples/simple_demo.py
 
-# Terminal 2: Start frontend
+# Terminal 2: Start frontend dev server
 cd frontend && npm run dev
 ```
 
-Open http://localhost:3000 in your browser.
+Then open http://localhost:5173 instead.
 
 ### Run with LangGraph
 
@@ -151,8 +163,8 @@ make docker-prod  # Run with Docker (production)
 
 ## Roadmap
 
-- [ ] Multi-agent support with dynamic positioning
-- [ ] Tool-specific animations (search, calculator, etc.)
+- [x] Multi-agent support with dynamic positioning
+- [x] Tool-specific animations (search, calculator, etc.)
 - [ ] Speed control for event playback
 - [ ] Custom sprite support
 - [ ] Themes (dungeon, sci-fi, city)

@@ -24,11 +24,16 @@ def main():
         title="PixelGraph Demo",
         theme="dungeon",
         nodes={
-            "wizard": AgentConfig(
+            "planner": AgentConfig(
                 sprite="wizard",
-                color="purple",
-                display_name="Wise Wizard"
-            )
+                color="blue",
+                display_name="Planner"
+            ),
+            "executor": AgentConfig(
+                sprite="wizard",
+                color="red",
+                display_name="Executor"
+            ),
         }
     )
 

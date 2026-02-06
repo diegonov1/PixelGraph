@@ -232,48 +232,8 @@ class GameServer:
                                     }
                                 )
                         else:
-                            # Demo mode: send a sample response
-                            await asyncio.sleep(0.5)
-                            await event_queue.put(
-                                {
-                                    "event_id": "demo_think",
-                                    "timestamp": "now",
-                                    "type": "AGENT_THINK_START",
-                                    "agent_id": "wizard",
-                                    "data": {"status": "processing"},
-                                }
-                            )
-                            await asyncio.sleep(1)
-                            await event_queue.put(
-                                {
-                                    "event_id": "demo_speak",
-                                    "timestamp": "now",
-                                    "type": "AGENT_SPEAK",
-                                    "agent_id": "wizard",
-                                    "data": {
-                                        "content": f"Greetings, traveler! You said: '{user_input}'"
-                                    },
-                                }
-                            )
-                            await asyncio.sleep(0.3)
-                            await event_queue.put(
-                                {
-                                    "event_id": "demo_idle",
-                                    "timestamp": "now",
-                                    "type": "AGENT_IDLE",
-                                    "agent_id": "wizard",
-                                    "data": {},
-                                }
-                            )
-                            await event_queue.put(
-                                {
-                                    "event_id": "sim_end",
-                                    "timestamp": "now",
-                                    "type": "SIMULATION_END",
-                                    "agent_id": "system",
-                                    "data": {"result": "Demo completed"},
-                                }
-                            )
+                            # Demo mode: planner-executor workflow
+                            await self._run_demo_workflow(event_queue, user_input)
 
             except WebSocketDisconnect:
                 self.session_manager.remove_session(session_id)
@@ -304,6 +264,53 @@ class GameServer:
                     "websocket": "/ws/game",
                     "config": "/api/config",
                 }
+
+    async def _run_demo_workflow(self, queue: asyncio.Queue, user_input: str):
+        """Simulate a planner-executor agent workflow for demo purposes."""
+
+        async def emit(event_id, event_type, agent_id, data):
+            await queue.put({
+                "event_id": event_id,
+                "timestamp": "now",
+                "type": event_type,
+                "agent_id": agent_id,
+                "data": data,
+            })
+
+        # 1) Planner thinks
+        await asyncio.sleep(0.5)
+        await emit("p_think", "AGENT_THINK_START", "planner", {"status": "planning"})
+        await asyncio.sleep(1.5)
+
+        # 2) Planner speaks the plan
+        await emit(
+            "p_speak", "AGENT_SPEAK", "planner",
+            {"content": f"I'll break this into steps: 1) Research '{user_input}' 2) Summarize findings"},
+        )
+        await asyncio.sleep(3.5)
+        await emit("p_idle", "AGENT_IDLE", "planner", {})
+
+        # 3) Executor thinks
+        await asyncio.sleep(0.5)
+        await emit("e_think", "AGENT_THINK_START", "executor", {"status": "executing step 1"})
+        await asyncio.sleep(1.0)
+
+        # 4) Executor uses a tool
+        await emit("e_tool_start", "TOOL_START", "executor", {"tool_name": "web_search", "input_args": user_input})
+        await asyncio.sleep(2.0)
+        await emit("e_tool_end", "TOOL_END", "executor", {"tool_name": "web_search", "result": "Found 3 results"})
+        await asyncio.sleep(0.5)
+
+        # 5) Executor speaks the result
+        await emit(
+            "e_speak", "AGENT_SPEAK", "executor",
+            {"content": f"Done! Here's what I found about '{user_input}': task completed successfully."},
+        )
+        await asyncio.sleep(3.5)
+        await emit("e_idle", "AGENT_IDLE", "executor", {})
+
+        # 6) Simulation end
+        await emit("sim_end", "SIMULATION_END", "system", {"result": "Workflow completed"})
 
     def serve(self, host: str = "0.0.0.0", port: int = 8000, **kwargs):
         """

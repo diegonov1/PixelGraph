@@ -19,13 +19,18 @@ export class AgentSprite extends Phaser.GameObjects.Container {
   public agentId: string
   public currentState: AgentState = 'idle'
 
-  private colors = {
-    body: 0x6a5acd,      // Slate blue
-    outline: 0x483d8b,   // Dark slate blue
-    eyes: 0xffffff,
-    pupils: 0x000000,
-    hat: 0x9370db,       // Medium purple (wizard hat)
-  }
+  // Palette of distinct colors for differentiating agents
+  private static agentColorPool = [
+    0x6a5acd, // Slate blue
+    0xe06060, // Soft red
+    0x50b050, // Green
+    0xe0a030, // Amber
+    0xcc55cc, // Magenta
+    0x40b0b0, // Teal
+  ]
+  private static nextColorIndex = 0
+
+  private bodyColor: number
 
   constructor(
     scene: Phaser.Scene,
@@ -38,7 +43,11 @@ export class AgentSprite extends Phaser.GameObjects.Container {
 
     this.agentId = agentId
 
-    // Create the 8-bit character sprite using graphics
+    // Assign a unique color from the pool
+    this.bodyColor = AgentSprite.agentColorPool[AgentSprite.nextColorIndex % AgentSprite.agentColorPool.length]
+    AgentSprite.nextColorIndex++
+
+    // Create placeholder sprite (simple colored shape)
     this.sprite = this.createCharacterGraphics()
     this.add(this.sprite)
 
@@ -61,48 +70,27 @@ export class AgentSprite extends Phaser.GameObjects.Container {
 
   private createCharacterGraphics(): Phaser.GameObjects.Graphics {
     const graphics = this.scene.add.graphics()
-    const pixelSize = 4
+    const size = 28 // half-size for origin centering
 
-    // 8-bit wizard character (16x16 pixels scaled up)
-    const character = [
-      '    HHHH    ',
-      '   HHHHHH   ',
-      '  HHHHHHHH  ',
-      '   BBBBBB   ',
-      '  BEEWWEEB  ',
-      '  BBBBBBBB  ',
-      '  BB BB BB  ',
-      '   BBBBBB   ',
-      '    RRRR    ',
-      '   RRRRRR   ',
-      '  RR RR RR  ',
-      '  RR RR RR  ',
-      '   LL  LL   ',
-      '   LL  LL   ',
-    ]
+    // --- Placeholder sprite: colored circle with a border and simple face ---
 
-    const colorMap: Record<string, number> = {
-      'H': this.colors.hat,
-      'B': this.colors.body,
-      'E': this.colors.eyes,
-      'W': this.colors.pupils,
-      'R': 0x8b4513,  // Robe (brown)
-      'L': 0x2f2f2f,  // Legs (dark gray)
-    }
+    // Body circle
+    graphics.fillStyle(this.bodyColor, 1)
+    graphics.fillCircle(0, 0, size)
 
-    character.forEach((row, y) => {
-      row.split('').forEach((char, x) => {
-        if (char !== ' ' && colorMap[char]) {
-          graphics.fillStyle(colorMap[char])
-          graphics.fillRect(
-            (x - 6) * pixelSize,
-            (y - 7) * pixelSize,
-            pixelSize,
-            pixelSize
-          )
-        }
-      })
-    })
+    // Border
+    graphics.lineStyle(3, 0xffffff, 0.6)
+    graphics.strokeCircle(0, 0, size)
+
+    // Eyes (two white dots)
+    graphics.fillStyle(0xffffff, 1)
+    graphics.fillCircle(-9, -6, 5)
+    graphics.fillCircle(9, -6, 5)
+
+    // Pupils
+    graphics.fillStyle(0x000000, 1)
+    graphics.fillCircle(-8, -5, 2.5)
+    graphics.fillCircle(10, -5, 2.5)
 
     return graphics
   }
